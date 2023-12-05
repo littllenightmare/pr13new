@@ -22,7 +22,8 @@ namespace pr13new
     {
         public MainWindow()
         {
-            InitializeComponent();           
+            InitializeComponent();
+            sizematr.Content = $"Размер матрицы: {dgDano.ActualHeight}, {dgDano.ActualWidth}";
         }
 
         private void exitClick(object sender, RoutedEventArgs e)
@@ -37,12 +38,17 @@ namespace pr13new
 
         private void rasClick(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void ochClick(object sender, RoutedEventArgs e)
         {
             dgRes.Items.Clear();
+        }
+
+        private void CreateCLick(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
