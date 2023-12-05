@@ -27,7 +27,7 @@
         <Button Grid.Column="5" Content="Выход" HorizontalAlignment="Center" Height="30" Grid.Row="3" VerticalAlignment="Bottom" Width="150" Click="exitClick" ToolTip="Выход из программы"/>
         <Menu VerticalAlignment="Top" HorizontalAlignment="Stretch" ToolTip="Меню" Grid.ColumnSpan="6">
             <MenuItem Header="Файл" Height="40" ToolTip="Расположение кнопок Выход и Рассчитать">
-                <MenuItem Header="Рассчитать" Click="rasClick"></MenuItem>
+                <MenuItem Header="Создать" Click="CreateCLick"></MenuItem>
                 <MenuItem  Header="Выход" Click="exitClick"></MenuItem>
             </MenuItem>
             <MenuItem Header="Справка" Height="40" ToolTip="Расположение кнопки О программе">
@@ -48,17 +48,16 @@
                 </ContextMenu>
             </Grid.ContextMenu>
         </Grid>
-        <Button Grid.Column="5" Content="Рассчитать" HorizontalAlignment="Center" Height="80" Grid.Row="1" VerticalAlignment="Center" Width="150" Click="rasClick" ToolTip="Кнопка рассчитать"/>
         <Grid HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" Grid.RowSpan="2" Grid.ColumnSpan="4">
             <Grid.RowDefinitions>
                 <RowDefinition Height="10*"/>
                 <RowDefinition Height="65*"/>
             </Grid.RowDefinitions>
-            <DataGrid x:Name="dgDano" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1"/>
+            <DataGrid x:Name="dgDano" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" CellEditEnding="Danocelleditending"/>
             <Label Content="Исходные данные" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="110"/>
             <Grid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Рассчитать" Click="rasClick"/>
+                    <MenuItem Header="Создать" Click="CreateCLick"/>
                 </ContextMenu>
             </Grid.ContextMenu>
         </Grid>
@@ -75,11 +74,14 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
-            <Label Content="Создание матрицы" Grid.Row="0"></Label>
-            <TextBox HorizontalAlignment="Left" Height="40" Text="" Grid.Row="1" VerticalAlignment="Center" Width="50" Margin="5,0,0,0"/>
-            <TextBox HorizontalAlignment="Right" Height="40" Text="" Grid.Row="1" VerticalAlignment="Center" Width="50"/>
-            <Button Content="Создать" Grid.Row="2" Margin="5,0,0,0" Click="CreateCLick"></Button>
+            <Label Content="Создание матрицы" Grid.Row="0" VerticalAlignment="Top"></Label>
+            <Label Content="Строки" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="70"></Label>
+            <Label Content="Столбцы" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Width="70"></Label>
+            <TextBox x:Name="tbM" HorizontalAlignment="Left" Height="40" Text="" Grid.Row="2" VerticalAlignment="Center" Width="50" Margin="5,0,0,0" TextChanged="Createtch"/>
+            <TextBox x:Name="tbN" HorizontalAlignment="Right" Height="40" Text="" Grid.Row="2" VerticalAlignment="Center" Width="50"/>
+            <Button Content="Создать" Grid.Row="3" Margin="5,5,0,0" Click="CreateCLick"></Button>
         </Grid>
     </Grid>
 </Window>
