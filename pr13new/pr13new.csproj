@@ -15,4 +15,8 @@
     <Resource Include="bm140.ico" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Новая папка\" />
+  </ItemGroup>
+
 </Project>
