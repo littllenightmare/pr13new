@@ -9,10 +9,18 @@
 
   <ItemGroup>
     <None Remove="bm140.ico" />
+    <None Remove="Calculator.ico" />
+    <None Remove="Help Document.ico" />
+    <None Remove="Recycle Bin Empty2.ico" />
+    <None Remove="Shutdown.ico" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="bm140.ico" />
+    <Resource Include="Calculator.ico" />
+    <Resource Include="Help Document.ico" />
+    <Resource Include="Recycle Bin Empty2.ico" />
+    <Resource Include="Shutdown.ico" />
   </ItemGroup>
 
   <ItemGroup>

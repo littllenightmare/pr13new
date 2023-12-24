@@ -21,10 +21,10 @@ namespace pr13new
     /// </summary>
     public partial class MainWindow : Window
     {
-        int[,] matr;
+        int[,] matr;//описываем как глобальный объект
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();  
         }
 
         private void exitClick(object sender, RoutedEventArgs e)//кнопка выхода
@@ -37,9 +37,10 @@ namespace pr13new
             MessageBox.Show("Выполнено Кульковой Ангелиной.\r\n Дана вещественная матрица А(M, N). Строку, содержащий максимальный элемент, поменять местами со строкой, содержащей минимальный элемент.");
         }
 
-        private void ochClick(object sender, RoutedEventArgs e)//кнопка очистки матрицы результата
+        private void ochClick(object sender, RoutedEventArgs e)//кнопка очистки матриц
         {
-            dgRes.Items.Clear();
+            dgRes.ItemsSource = null;
+            dgDano.ItemsSource = null;
         }
 
         private void CreateCLick(object sender, RoutedEventArgs e)//Кнопка создания матрицы
@@ -56,8 +57,8 @@ namespace pr13new
                         matr[i, j] = rnd.Next(1, 10);
                     }
                 }
-                dgDano.ItemsSource = VisualArray.ToDataTable(matr).DefaultView;
-                sizematr.Content = $"Размер матрицы: {m}, {n}";
+                dgDano.ItemsSource = VisualArray.ToDataTable(matr).DefaultView;//выодим на форму
+                sizematr.Content = $"Размер матрицы: {m}, {n}";//выводим размер матрицы
             }
             else MessageBox.Show("Введите корректные данные");//если данных нет или они неправильные
         }
@@ -66,7 +67,7 @@ namespace pr13new
         {
             dgRes.ItemsSource = null;
             int IndexColumn = e.Column.DisplayIndex;
-            int IndexRow = e.Column.DisplayIndex;
+            int IndexRow = e.Row.GetIndex();
             matr[IndexColumn, IndexRow] = Convert.ToInt32(((TextBox)e.EditingElement).Text);
         }
 
@@ -76,47 +77,36 @@ namespace pr13new
             dgDano.ItemsSource = null;
         }
 
-        private void rasClick(object sender, RoutedEventArgs e)
+        private void rasClick(object sender, RoutedEventArgs e)//кнопка расчета вызвает класс программы и выносит на форму
         {
-            int m, n, a = 0, b = 0, min = 10000, max = 0;        
+            int m, n;      
             if (Int32.TryParse(tbM.Text, out m) == true & Int32.TryParse(tbN.Text, out n) == true)//проверяем текстбоксы на верность
             {
-                for (int i = 0; i < m; i++)
-                {
-                    for (int j = 0; j < n; j++)
-                    {
-                        if (matr[i, j] < min)
-                        {
-                            a = i;
-                            min = matr[i, j];
-                        }
-                        if (matr[i, j] > max)
-                        {
-                            b = i;
-                            max = matr[i, j];
-                        }
-                    }
-                }
-                    for (int j = 0; j < n; j++)
-                    {
-                        int c = matr[a,j];
-                        matr[a, j] = matr[b, j];
-                        matr[b, j] = c;
-                    }
+                ProgramClass.ChangeMatrix(matr);
                 dgRes.ItemsSource = VisualArray.ToDataTable(matr).DefaultView;
             }
         }
 
-        private void SaveClick(object sender, RoutedEventArgs e)
+        private void SaveClick(object sender, RoutedEventArgs e)//кнопка сохранения матрицы
         {
             Massiv.SaveMatr(matr);
             Openbtn.IsEnabled = true;
         }
 
-        private void DownloadClick(object sender, RoutedEventArgs e)
+        private void DownloadClick(object sender, RoutedEventArgs e)//кнопка выгрузки матрицы
         {
             Massiv.OpenMatr(out matr);
             dgDano.ItemsSource = VisualArray.ToDataTable(matr).DefaultView;
+        }
+
+        private void CurrentCellChanged(object sender, EventArgs e)//для расчета выделенной ячейки
+        {
+            if (dgDano.CurrentCell.Column != null)
+            {
+                int selectedRow = dgDano.SelectedIndex;
+                int selectedColumn = dgDano.CurrentCell.Column.DisplayIndex;
+                numyach.Content = $"Номер выделенной ячейки: {selectedRow}, {selectedColumn}";
+            }
         }
     }
 }

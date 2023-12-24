@@ -73,7 +73,7 @@ namespace pr13new
         /// <param name="matr">матрица</param>
         public static void SaveMatr(int[,] matr)
         {
-            StreamWriter sw = new StreamWriter("Ìàòðèöà.txt");
+            StreamWriter sw = new StreamWriter("matrix.txt");
             int rows = matr.GetLength(0);
             int columns = matr.GetLength(1);
             sw.WriteLine($"{rows}");
@@ -94,7 +94,7 @@ namespace pr13new
         /// <param name="matr">матрица</param>
         public static void OpenMatr(out int[,] matr)
         {
-            StreamReader sr = new StreamReader("Ìàòðèöà.txt");
+            StreamReader sr = new StreamReader("matrix.txt");
             int rows = Convert.ToInt32(sr.ReadLine());
             int columns = Convert.ToInt32(sr.ReadLine());
             matr = new int[rows, columns];

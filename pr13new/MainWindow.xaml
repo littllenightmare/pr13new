@@ -6,14 +6,15 @@
         xmlns:local="clr-namespace:pr13new"
         mc:Ignorable="d"
         Title="pr13"
-        MinHeight="450" MinWidth="800" Icon="/bm140.ico">
+        MinHeight="510" MinWidth="800" Icon="/bm140.ico">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="27*"/>
@@ -23,22 +24,36 @@
             <ColumnDefinition Width="160*"/>
             <ColumnDefinition Width="160*"/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="5" Content="О программе" HorizontalAlignment="Center" Height="30" Grid.Row="3" VerticalAlignment="Top" Width="150" Click="infoClick" ToolTip="Показывает задание и автора"/>
-        <Button Grid.Column="5" Content="Выход" HorizontalAlignment="Center" Height="30" Grid.Row="3" VerticalAlignment="Bottom" Width="150" Click="exitClick" ToolTip="Выход из программы"/>
+        <ToolBar Height="50" VerticalAlignment="Top" Grid.ColumnSpan="6" Grid.Row="1" HorizontalAlignment="Stretch">
+            <Button Click="exitClick" ToolTip="Выход">
+                <Image Source="/Shutdown.ico" Width="20" Height="20" />
+            </Button>
+            <Button Click="infoClick" ToolTip="О программе">
+                <Image Source="Help Document.ico" Width="20" Height="20" />
+            </Button>
+            <Button Click="rasClick" ToolTip="Рассчитать">
+                <Image Source="Calculator.ico" Width="20" Height="20" />
+            </Button>
+            <Button Click="ochClick" ToolTip="Очистить">
+                <Image Source="Recycle Bin Empty2.ico" Width="20" Height="20" />
+            </Button>
+        </ToolBar>
+        <Button Grid.Column="5" Content="О программе" HorizontalAlignment="Center" Height="30" Grid.Row="4" VerticalAlignment="Top" Width="150" Click="infoClick" ToolTip="Показывает задание и автора"/>
+        <Button Grid.Column="5" Content="Выход" HorizontalAlignment="Center" Height="30" Grid.Row="4" VerticalAlignment="Bottom" Width="150" Click="exitClick" ToolTip="Выход из программы"/>
         <Menu VerticalAlignment="Top" HorizontalAlignment="Stretch" ToolTip="Меню" Grid.ColumnSpan="6">
-            <MenuItem Header="Файл" Height="40" ToolTip="Расположение кнопок Выход и Рассчитать">
+            <MenuItem Header="Файл" Height="40" ToolTip="Расположение кнопок Выход, Очистить и Рассчитать">
                 <MenuItem Header="Создать" Click="CreateCLick"></MenuItem>
+                <MenuItem Header="Очистить" Click="ochClick"/>
                 <MenuItem  Header="Выход" Click="exitClick"></MenuItem>
             </MenuItem>
             <MenuItem Header="Справка" Height="40" ToolTip="Расположение кнопки О программе">
                 <MenuItem Header="О программе" Click="infoClick"></MenuItem>
             </MenuItem>
         </Menu>
-
-        <Grid Grid.Column="0"  HorizontalAlignment="Stretch" Grid.Row="3" VerticalAlignment="Stretch" ToolTip="Здесь отобразится результат" Grid.ColumnSpan="5">
+        <Grid Grid.Column="0"  HorizontalAlignment="Stretch" Grid.Row="4" VerticalAlignment="Stretch" ToolTip="Здесь отобразится результат" Grid.ColumnSpan="5">
             <Grid.RowDefinitions>
-                <RowDefinition Height="20*"/>
-                <RowDefinition Height="40*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="4*"/>
             </Grid.RowDefinitions>
             <Label Content="Результат" Grid.Row="0"/>
             <DataGrid x:Name="dgRes" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch"/>
@@ -48,29 +63,31 @@
                 </ContextMenu>
             </Grid.ContextMenu>
         </Grid>
-        <Grid HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" Grid.RowSpan="2" Grid.ColumnSpan="4">
+        <Grid HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Stretch" Grid.RowSpan="2" Grid.ColumnSpan="4" ToolTip="Матрица с исходными данными">
             <Grid.RowDefinitions>
                 <RowDefinition Height="10*"/>
                 <RowDefinition Height="65*"/>
             </Grid.RowDefinitions>
-            <DataGrid x:Name="dgDano" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" CellEditEnding="Danocelleditending"/>
+            <DataGrid x:Name="dgDano" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="1" CellEditEnding="Danocelleditending" CurrentCellChanged="CurrentCellChanged"/>
             <Label Content="Исходные данные" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="110"/>
             <Grid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Создать" Click="CreateCLick"/>
+                    <MenuItem Header="Очистить" Click="ochClick"/>
                 </ContextMenu>
             </Grid.ContextMenu>
         </Grid>
-        <StatusBar Grid.Row="4" Grid.ColumnSpan="6" Height="30" VerticalAlignment="Bottom">
+        <StatusBar Grid.Row="5" Grid.ColumnSpan="6" Height="30" VerticalAlignment="Bottom">
             <Separator></Separator>
             <StatusBarItem x:Name="sizematr" Content="Размер матрицы: "></StatusBarItem>
             <Separator></Separator>
             <StatusBarItem x:Name="numyach"  Content="Номер выделенной ячейки: "></StatusBarItem>
         </StatusBar>
-        <Button Grid.Column="5" Content="Сохранить" HorizontalAlignment="Center" Height="30" Grid.Row="2" VerticalAlignment="Top" Width="150" ToolTip="Сохраняет вашу матрицу в текстовый файл" Click="SaveClick"/>
-        <Button x:Name="Openbtn" IsEnabled="False" Grid.Column="5" Content="Добавить" HorizontalAlignment="Center" Height="30" Grid.Row="2" VerticalAlignment="Bottom" Width="150" ToolTip="добавляет вашу матрицу из текстового файла" Click="DownloadClick"/>
-        <Grid Grid.Column="4" HorizontalAlignment="Left" Height="165" Grid.RowSpan="2" Grid.Row="1" VerticalAlignment="Top" Width="150" ToolTip="Создание матрицы">
+        <Button Grid.Column="5" Content="Сохранить" HorizontalAlignment="Center" Height="30" Grid.Row="3" VerticalAlignment="Top" Width="150" ToolTip="Сохраняет вашу матрицу в текстовый файл" Click="SaveClick"/>
+        <Button x:Name="Openbtn" IsEnabled="False" Grid.Column="5" Content="Добавить" HorizontalAlignment="Center" Height="30" Grid.Row="3" VerticalAlignment="Bottom" Width="150" ToolTip="добавляет вашу матрицу из текстового файла" Click="DownloadClick"/>
+        <Grid Grid.Column="4" Grid.Row="2" HorizontalAlignment="Left" Height="221" Grid.RowSpan="4" VerticalAlignment="Top" Width="150" ToolTip="Создание матрицы">
             <Grid.RowDefinitions>
+                <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -79,10 +96,11 @@
             <Label Content="Создание матрицы" Grid.Row="0" VerticalAlignment="Top"></Label>
             <Label Content="Строки" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Width="70"></Label>
             <Label Content="Столбцы" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Width="70"></Label>
-            <TextBox x:Name="tbM" HorizontalAlignment="Left" Height="40" Text="" Grid.Row="2" VerticalAlignment="Center" Width="50" Margin="5,0,0,0" TextChanged="Createtch"/>
-            <TextBox x:Name="tbN" HorizontalAlignment="Right" Height="40" Text="" Grid.Row="2" VerticalAlignment="Center" Width="50" TextChanged="Createtch"/>
+            <TextBox x:Name="tbM" HorizontalAlignment="Left" Height="40" Text="" Grid.Row="2" VerticalAlignment="Center" Width="50" Margin="5,0,0,0" TextChanged="Createtch" ToolTip="Количество строк"/>
+            <TextBox x:Name="tbN" HorizontalAlignment="Right" Height="40" Text="" Grid.Row="2" VerticalAlignment="Center" Width="50" TextChanged="Createtch" ToolTip="Количество столбцов"/>
             <Button Content="Создать" Grid.Row="3" Margin="5,5,0,0" Click="CreateCLick"></Button>
+            <Button Content="Очистить" Grid.Row="4" Margin="5,5,0,0" Click="ochClick" ToolTip="Очистка обеих матриц"></Button>
         </Grid>
-        <Button Grid.Column="5" Content="Рассчитать" HorizontalAlignment="Center" Height="85" Grid.Row="1" VerticalAlignment="Center" Width="140" Click="rasClick"/>
+        <Button Grid.Column="5" Content="Рассчитать" HorizontalAlignment="Center" Height="85" Grid.Row="2" VerticalAlignment="Center" Width="140" Click="rasClick" ToolTip="Произведение программного расчёта"/>
     </Grid>
 </Window>
